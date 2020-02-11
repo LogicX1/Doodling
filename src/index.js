@@ -15,6 +15,11 @@ http.listen(port, () => {
 io.on('connection', (socket) => {
     const userName = 'Guest'+generateGuest();
     console.log(`${userName} has joind the game`);
+    
+    socket.on("chat message", function(msg) {
+        console.log(msg);
+        io.emit("chat message", userName + " :" + msg);
+      });
     socket.on('disconnect', () => {
         console.log(`${userName} has left`)
     });

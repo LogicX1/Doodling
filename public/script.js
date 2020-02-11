@@ -4,6 +4,7 @@ function getId(element) {
 
 document.addEventListener("DOMContentLoaded",function()  {
     let socket = io();
+    
     getId('message-form').addEventListener('submit', (e) => {
         e.preventDefault();
         console.log(getId('message').value);
@@ -17,6 +18,6 @@ document.addEventListener("DOMContentLoaded",function()  {
         var newMsg = document.createElement('li');
         newMsg.textContent=msg;
         console.log('message event');
-        $('messages-list').append(newMsg);
+        getId('messages-list').append(newMsg);
     });
 });
