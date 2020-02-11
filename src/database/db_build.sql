@@ -1,5 +1,6 @@
 BEGIN;
 
+
 DROP TABLE IF EXISTS usernames;
 
 
@@ -23,3 +24,4 @@ insert into usernames (id, name, password) values (12,'francis', '1234');
 
 
 COMMIT;
+
