@@ -1,6 +1,9 @@
 const app = require('express')();
 const exphbs = require('express-handlebars');
 const path = require('path');
+const helmet = require('helmet');
+
+app.use(helmet())
 
 const routes = require('./routes/routes');
 // const helpers = require('./views/')
@@ -26,3 +29,5 @@ app.engine(
 
 app.set('port', process.env.PORT || 5000);
 app.use(routes);
+
+module.exports = app;
