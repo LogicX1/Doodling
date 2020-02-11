@@ -4,37 +4,41 @@ body {
     margin: 0;
     padding: 1vw;
     width: 95vw;
-    height: 95vh;
+    height: 87vh;
     background-color: bisque;
 }
 
+.info-bar {
+    width: 95vw;
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+}
 
 .game-container{
     margin: 0;
-    width: 98%;
+    width: 95vw;
     height: 95%;
-    display: grid;
-    grid-template-columns:  1fr 1fr repeat(4,minmax(auto,5em)) repeat(2,1fr);
-    column-gap: 1em;
+    display: flex;
+    justify-content: space-between  ;
 }
 
 .users-container{
     padding: 10px;
-    grid-column:1/3;
+    min-width: 170px;
     background-color: blue;
 }
 
 .canvas-container {
-    grid-column: 3/7;
+    flex-grow: 1;
     background-color: brown;
 }
 
 .chat-container{
     padding: 10px;
-    grid-column: 7/9;
+    min-width: 250px;
     background-color: cornflowerblue;
-    display: flex;
-    flex-direction: column;
+
 }
 
 .messages-container{
@@ -60,7 +64,7 @@ body {
 #message{
     width: 80%;
 }
-#messages-list {
+#messages-list{
     list-style-type: none;
     margin: 0;
     padding: 0;
