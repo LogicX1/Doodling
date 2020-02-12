@@ -9,7 +9,7 @@ const app = express();
 app.use(helmet())
 
 const routes = require('./routes/routes');
-// const helpers = require('./views/')
+const helpers = require('./views/helpers/uppercase')
 
 // const data = require('../src/views')
 
@@ -23,7 +23,7 @@ app.engine(
         layoutsDir: path.join(__dirname, 'views', 'layouts'),
         partialsDir: path.join(__dirname, 'views', 'partials'),
         defaultLayout: 'main',
-        // helpers: helpers
+        helpers: helpers
     })
 )
 
