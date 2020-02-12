@@ -23,6 +23,9 @@ io.on('connection', (socket) => {
         console.log(msg);
         io.emit("chat message", userName + " :" + msg);
       });
+
+    socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+
     socket.on('disconnect', () => {
         console.log(`${userName} has left`)
         const userIndex = connectedUsers.indexOf(userName);
