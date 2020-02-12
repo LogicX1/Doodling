@@ -59,17 +59,19 @@ You can run "npm i" in the terminal.
    - In your terminal start psql or pgcli.
 
 In terminal,Enter the following:
-- CREATE DATABASE testhosteldb;
+- CREATE DATABASE usernames;
 You can create a user or skip and use existing user.
 - CREATE USER [user_name] WITH SUPERUSER PASSWORD ['password'];
 
-- ALTER DATABASE testhosteldb OWNER TO [user_name];
+- ALTER DATABASE usernames OWNER TO [user_name];
 
 ---
 
 2. In your .env file add this :
    `TEST_DB_URL = postgres://[user_name]:[password]@localhost:5432/[db_name]`
    replace the [user_name] , [password] , [db_name] with your own.
+
+3. run `npm test`
 
 ## Test database set!
 
@@ -79,7 +81,7 @@ You can create a user or skip and use existing user.
 ## :construction_worker: :construction:   Our process
 
 We picked out of many ideas and discussed them until we decided on one : painting and chatting with users.
-1. First thing was planning our database, we drawed on the board and implemented the schema on dbdiagram.io .
+1. First thing was planning how our website is going to look like, design wise.
 2. After that we decided how the file structure will be like and built that and pushed it to our repo.
 3. divided the work that everyone will work on seperate file such as server-side,front-end,database ..
 5. Wrote tests to test our database.
@@ -93,6 +95,7 @@ We picked out of many ideas and discussed them until we decided on one : paintin
 Using express turned out to be harder than expected we had some struggle with things such as : 
 - Planning how all the connections will work before imeplenting anything.
 - Creating complex canvas for painting and user chat .
+- Figuring out how to implement canvas and make it work for different connected users.
 - Heroku didn't run because of some packages being dev packages.
 
 ---
