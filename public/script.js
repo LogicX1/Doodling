@@ -20,6 +20,14 @@ function getClass(element) {
   }
   document.addEventListener("DOMContentLoaded", function() {
     let socket = io();
+    currWord = getClass('currWord')[0]
+    axios.get('/getWord')
+    .then(function (response) {
+      currWord.textContent = response.data[0].doodle;
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
 
     var canvas = document.getElementsByClassName('whiteboard')[0];
     var colors = document.getElementsByClassName('color');
@@ -120,6 +128,7 @@ function getClass(element) {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
+
   
     getId("message-form").addEventListener("submit", e => {
       e.preventDefault();
