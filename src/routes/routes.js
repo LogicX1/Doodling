@@ -11,10 +11,8 @@ router.get('/', (req, res) => {
 })
 
 router.post('/auth', (req, res) => {
-    console.log(req.body)
     dbConnection.query('SELECT * FROM usernames WHERE $1 = name and $2 = password', [req.body.inputUserName, req.body.inputPassword], (err, result) => {
         if (result.rows.length) {
-            console.log('work')
             res.redirect('game')
         } else {
             res.render('home', {
