@@ -1,78 +1,22 @@
-
-
 function getId(element) {
   return document.getElementById(element);
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  let socket = io();
-  getId("form").addEventListener("submit", e => {
-    e.preventDefault();
-    const msg = getId("m");
-    socket.emit("chat message", msg.value);
-    msg.value = "";
-    return false;
+function getClass(element) {
+  return document.getElementsByClassName(element);
+}
+function removeChildren(node) {
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
+}
+function updateList(list, values) {
+  removeChildren(list);
+  values.forEach(value => {
+    var newListing = document.createElement("li");
+    newListing.textContent = value;
+    list.append(newListing);
   });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 // Drawing functions and shit
 var currentColor = "blue";
@@ -218,22 +162,7 @@ function display() {
 
 update();
 
-function getClass(element) {
-  return document.getElementsByClassName(element);
-}
-function removeChildren(node){
-    while(node.firstChild){
-        node.removeChild(node.firstChild)
-    }
-}
-function updateList(list,values){
-    removeChildren(list);
-    values.forEach(value => {
-        var newListing = document.createElement("li");
-        newListing.textContent = value;
-        list.append(newListing);
-      });
-}
+
 document.addEventListener("DOMContentLoaded", function() {
   let socket = io();
 
@@ -252,7 +181,6 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   socket.on("update connected users", function(connectedUsers) {
-    updateList(getId("users-list"),connectedUsers);
+    updateList(getId("users-list"), connectedUsers);
   });
 });
-

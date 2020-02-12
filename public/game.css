@@ -1,5 +1,8 @@
 /* General elements styling */
-
+html {
+    min-width: 100vw;
+    min-height: 100vh;
+}
 body {
     margin: 10px;
     padding: 10px;
@@ -10,8 +13,9 @@ body {
 
 .info-bar {
     border-radius: 8px;
-    width: 100%;
-    height: 8%;
+    min-width: 370px;
+    width: 95vw;
+    height: 9%;
     padding-left: 9px;
     padding-right: 9px;
     display: flex;
@@ -23,7 +27,7 @@ body {
     margin: 0;
     width: 100%;
     height: 80%;
-    min-height: 80vh;
+    min-height: 75vh;
     display: flex;
     justify-content: space-between;
 }
@@ -50,7 +54,6 @@ body {
 }
 
 .messages-container {
-    
     width: 100%;
     height: 80%;
 }
@@ -58,17 +61,13 @@ body {
 .input-container {
     width: 95%;
     height: 15%;
-    /* display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    align-items: center; */
+
 }
 
 #message-form {}
 
 #message {
-    width: 80%;
+    /* width: 80%; */
 }
 
 .messages-list {
@@ -96,4 +95,12 @@ body {
 .info-bar h2 {
     color: dimgray;
     align-self: center;
+}
+
+@media (max-width: 500px){
+    .info-bar{
+        min-width: 400px;
+        width: 750px;
+        
+    }
 }
