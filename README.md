@@ -107,8 +107,8 @@ Using express turned out to be harder than expected we had some struggle with th
 
 ## :fast_forward:  Current limitations and future goals
 ### Limitations:
-- The app works for the current month, and for the next one we need to setup the reservation table again.
-- No real source of data about hostels and cties , its all hard coded.
+- The app works but both users can draw instead of just one user.
+- No real source of users and sign up page, its all hard coded.
 
 ### Future goals
 - login page having authentication.

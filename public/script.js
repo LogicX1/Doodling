@@ -1,4 +1,18 @@
+/*
+Currently unused 
+ axios.get('/getWord')
+    .then(function (response) {
+      currWord.textContent = response.data[0].doodle;
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    */
+
+
+
 let currentDrawingUser = false;
+
 function getId(element) {
   return document.getElementById(element);
 }
@@ -20,10 +34,17 @@ function updateList(list, values) {
     list.append(newListing);
   });
 }
+function wordToDashes(word){
+  var res = '';
+  word.forEach(character=> res.push(_));
+  return res;
+}
 
 const userMsg = getClass("user-msg")[0].textContent.split(" ");
+
 document.addEventListener("DOMContentLoaded", function() {
   let socket = io();
+
   let currentUser = "Guest";
   console.log("A new user! and he is :", userMsg[1]);
   if (userMsg[1]) {
@@ -35,12 +56,16 @@ document.addEventListener("DOMContentLoaded", function() {
   var context = canvas.getContext("2d");
   context.lineWidth = 2;
 
-  socket.on("start game", drawingUser => {
+  socket.on("start game", ({drawingUser,gameWord}) => {
+    currWord = getClass('currWord')[0];
+    gameWord='stam';
     console.log("Game has started!");
     console.log(`This user:${currentUser}... Drawing user ${drawingUser}`);
     if (currentUser === drawingUser) {
+      currWord.textContent = gameWord;
       currentDrawingUser = true;
     } else {
+      currWord.textContent = wordToDashes(gameWord);
       currentDrawingUser = false;
     }
   });
