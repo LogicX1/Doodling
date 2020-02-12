@@ -2,6 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const helmet = require('helmet');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -27,7 +28,8 @@ app.engine(
 )
 
 app.use(express.static(path.join(__dirname, '..', 'public')))
-
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.set('port', process.env.PORT || 5000);
 app.use(routes);
