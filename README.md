@@ -1,5 +1,5 @@
 # Doodling
-By: @LogicX1 , @ayasm199 , @hadeel11 , @92yo
+By: @LogicX1 , @ayasm199 , @92yo
 
 ## Doodle with Friends
 
