@@ -192,8 +192,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // make the canvas fill its parent
   function onResize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = '75vw';
+    canvas.height = '90vh';
   }
 
   getId("message-form").addEventListener("submit", e => {
