@@ -20,7 +20,7 @@ function getClass(element) {
   }
   document.addEventListener("DOMContentLoaded", function() {
     let socket = io();
-    
+
     var canvas = document.getElementsByClassName('whiteboard')[0];
     var colors = document.getElementsByClassName('color');
     var context = canvas.getContext('2d');
@@ -121,36 +121,6 @@ function getClass(element) {
       canvas.height = window.innerHeight;
     }
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
     getId("message-form").addEventListener("submit", e => {
       e.preventDefault();
       socket.emit("chat message", getId("message").value);
@@ -164,11 +134,7 @@ function getClass(element) {
       getId("messages-list").append(newMsg);
     });
 
-    socket.on("draw message",onDrawingEvent) 
-
     socket.on("update connected users", function(connectedUsers) {
       updateList(getId("users-list"),connectedUsers);
     });
   });
-
-
