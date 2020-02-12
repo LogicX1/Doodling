@@ -39,11 +39,11 @@ io.on("connection", socket => {
     io.emit("update connected users", connectedUsers);
 
     if (connectedUsers.length >= 2 && gameStatus !== "Game started") {
-      console.log(
-        "Game gonna start drawing user is : ",
-        connectedUsers[selectDrawer()]
-      );
-      io.emit("start game", connectedUsers[selectDrawer()]);
+      let drawer = connectedUsers[selectDrawer()];
+        console.log("Game gonna start drawing user is : ",drawer);
+      io.emit("start game",
+       {drawingUser:drawer,
+       gameWrod:'STAM'});
       gameStatus = "Game started";
     }
 

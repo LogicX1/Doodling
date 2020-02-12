@@ -1,9 +1,9 @@
 /* General elements styling */
-
+/* 
 html {
     min-width: 100vw;
     min-height: 100vh;
-}
+} */
 
 body {
     margin: 10px;
@@ -43,7 +43,8 @@ body {
     margin: 9px;
     padding: 2px;
     flex-grow: 1;
-    max-width: 75vw;
+    max-width: 60vw;
+    max-height: 80vh;
     background: white;
 }
 

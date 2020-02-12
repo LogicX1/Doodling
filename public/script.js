@@ -11,7 +11,7 @@ Currently unused
 
 
 
-let currentDrawingUser = false;
+let currentDrawingUser = true;
 
 function getId(element) {
   return document.getElementById(element);
@@ -35,8 +35,8 @@ function updateList(list, values) {
   });
 }
 function wordToDashes(word){
-  var res = '';
-  word.forEach(character=> res.push(_));
+  var res = '----';
+  // word.forEach(character=> res.push(_));
   return res;
 }
 
@@ -58,9 +58,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   socket.on("start game", ({drawingUser,gameWord}) => {
     currWord = getClass('currWord')[0];
-    gameWord='stam';
     console.log("Game has started!");
-    console.log(`This user:${currentUser}... Drawing user ${drawingUser}`);
+    console.log(`This user:"${currentUser}"... Drawing user "${drawingUser}"`);
     if (currentUser === drawingUser) {
       currWord.textContent = gameWord;
       currentDrawingUser = true;
@@ -192,8 +191,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // make the canvas fill its parent
   function onResize() {
-    canvas.width = '75vw';
-    canvas.height = '90vh';
+    canvas.width = window.innerWidth * 0.6;
+    canvas.height = window.innerHeight * 0.8;
   }
 
   getId("message-form").addEventListener("submit", e => {
