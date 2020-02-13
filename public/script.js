@@ -21,7 +21,7 @@ function updateList(list, values) {
   });
 }
 /************  globals and consts **********/
-const SETROUNDTIME = 20;
+const SETROUNDTIME = 60;
 
 var currentDrawingUser = false;
 var userScore = 0;

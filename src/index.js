@@ -20,7 +20,17 @@ const gameWords = [
   "guitar",
   "sea",
   "laptop",
-  "chair"
+  "chair",
+  "star",
+  "coffee",
+  "milk",
+  'star',
+  'spaceship',
+  'rocket',
+  'lemon',
+  'apple',
+  'bottle',
+  'shoe'
 ];
 var gameWord = "";
 var drawer="";
@@ -86,7 +96,7 @@ socket.on("restart game",()=>{startGame()
         tempScores.forEach(score=>{
           totalGuessed+=parseInt(score.split(':')[1]);
         });
-        var drawerScore = 10*tempScores.length - totalGuessed;
+        var drawerScore = 0.5*totalGuessed;
         tempScores.push(tempDrawer+ ':' +drawerScore); 
         io.emit("round end", tempScores);
       }
