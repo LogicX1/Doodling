@@ -39,7 +39,8 @@ https://doodling.herokuapp.com/
 4. In the terminal run: npm start
 5. The server is now running at localhost:5000
 6. Open localhost:5000 in your browser!
-
+7. make sure to run CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public; 
+   to not get any error using Database
 ---
 
 
