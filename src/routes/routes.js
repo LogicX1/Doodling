@@ -26,7 +26,6 @@ router.get("/", (req, res) => {
   res.render("home", { err: "", layout: "login" });
 });
 router.get("/getWord", (req, res) => {
-  console.log("aaaaaaaaaaaaa");
   dbConnection.query(
     `SELECT doodle FROM round  
     ORDER BY RANDOM() LIMIT 1`,
@@ -41,6 +40,10 @@ router.post("/auth", (req, res) => {
     "SELECT * FROM usernames WHERE $1 = name and $2 = password",
     [req.body.inputUserName, req.body.inputPassword],
     (err, result) => {
+      if(err){
+        console.log(err);
+        return ;
+      }
       if (result.rows.length) {
         req.session.user = req.body.inputUserName;
         res.redirect("game");

@@ -34,12 +34,16 @@ const gameWords = [
 ];
 var gameWord = "";
 var drawer="";
+var drawerIndex=0;
 /************************          Helper functions     */
 
 function selectDrawer() {
-  var rand = Math.floor(Math.random() * connectedUsers.length);
-  console.log("rand is ", rand);
-  return rand;
+  drawerIndex++;
+  console.log("rand is ", drawerIndex);
+  if(drawerIndex>connectedUsers.length-1){
+    drawerIndex=0;
+  }
+  return drawerIndex;
 }
 function getWord() {
   // dbConnection.query(
@@ -49,7 +53,7 @@ function getWord() {
   //     gameWord = result.rows[0].doodle;
   //   }
   // );
-  var rand = Math.floor(Math.random() * (gameWords.length + 1));
+  var rand = Math.floor(Math.random() * (gameWords.length));
   console.log(gameWords[rand]);
   return gameWords[rand];
 }
@@ -69,7 +73,7 @@ io.on("connection", socket => {
     console.table(connectedUsers);
     io.emit("update connected users", connectedUsers);
     function startGame(){
-        if (connectedUsers.length >= 3 && gameStatus !== gamePhases.onGoing) {
+        if (connectedUsers.length >= 2 && gameStatus !== gamePhases.onGoing) {
             drawer = connectedUsers[selectDrawer()];
             usersScores=[];
             console.log("Game gonna start drawing user is : ", drawer);
@@ -82,7 +86,9 @@ io.on("connection", socket => {
             return false;
           }
     }
-socket.on("restart game",()=>{startGame() 
+socket.on("restart game",()=>{
+  console.log('Restart game event recived on backend');
+ startGame();
 });
     // score recieves should be a string of format username:score
     socket.on("round end", (score) => {
@@ -98,6 +104,7 @@ socket.on("restart game",()=>{startGame()
         });
         var drawerScore = 0.5*totalGuessed;
         tempScores.push(tempDrawer+ ':' +drawerScore); 
+        gameStatus=gamePhases.pending;
         io.emit("round end", tempScores);
       }
     });
