@@ -1,18 +1,4 @@
-/*
-Currently unused 
- axios.get('/getWord')
-    .then(function (response) {
-      currWord.textContent = response.data[0].doodle;
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-    */
-
-
-
-let currentDrawingUser = true;
-
+/** General functions */
 function getId(element) {
   return document.getElementById(element);
 }
@@ -34,32 +20,93 @@ function updateList(list, values) {
     list.append(newListing);
   });
 }
-function wordToDashes(word){
-  var res = '----';
-  // word.forEach(character=> res.push(_));
+/************  globals and consts **********/
+const SETROUNDTIME = 20;
+
+var currentDrawingUser = false;
+var userScore = 0;
+var roundTime = SETROUNDTIME;
+var gameWordGlobal;
+var guessed = false;
+var userScoreObj = {};
+/****************** Specific functions  ************/
+function wordToDashes(word) {
+  var res = "";
+  word.split("").forEach(character => (res += "_ "));
   return res;
 }
-
-const userMsg = getClass("user-msg")[0].textContent.split(" ");
-
+// function countTime() {
+//   getClass("round-time")[0].textContent = roundTime;
+//   roundTime -= 1;
+//   if (roundTime < 0) {
+//     socket.emit("round end", userScoreObj);
+//   }
+// }
+function resetGame() {
+  roundTime = SETROUNDTIME;
+  userScore = 0;
+  currentDrawingUser = false;
+  guessed = false;
+  userScoreObj = {};
+}
+/*************  The work begins when the dom is loaded  **************/
 document.addEventListener("DOMContentLoaded", function() {
-  let socket = io();
+  const userMsg = getClass("user-msg")[0].textContent.split(" ");
+  const scoreBoardDiv = getId("score-board");
+  const scoresList = getId("scores-list");
+  const canvasDiv = getId("canvas-container");
+  
+  function displayScores(scoresArray) {
+    scoreBoardDiv.style = "";
+    canvasDiv.style = "display:none"; 
+    updateList(
+      scoresList,
+      scoresArray.map(score => score + " points")
+    );
+    var newListing = document.createElement("li");
+    var restartButton = document.createElement("button");
+    restartButton.textContent="Play again!";
+    restartButton.addEventListener('click',(e)=>{
+      socket.emit("restart game",{});
+    })
+    newListing.appendChild(restartButton);
+    getId('scores-list').appendChild(newListing);
 
-  let currentUser = "Guest";
-  console.log("A new user! and he is :", userMsg[1]);
-  if (userMsg[1]) {
-    currentUser = userMsg[1];
   }
+  function hideScores() {
+    scoreBoardDiv.style = "display:none";
+    canvasDiv.style = "";
+  }
+  function addStartButton(){
+    console.log('creating start button..');
+    var startButton = document.createElement('button');
+    var startButtonLi= document.createElement('li');
+    startButton.className='btn btn-success';
+    startButton.textContent='Start!';
+    startButton.addEventListener('click',e=>{
+      socket.emit("restart game",{});
+    });
+    startButtonLi.appendChild(startButton);
+    getId('users-list').appendChild(startButtonLi);
+  }
+  var socket = io();
+  var currentUser = userMsg[1];
+  console.log("A new user! and he is :", userMsg[1]);
+
   socket.emit("user connected", currentUser);
   var canvas = document.getElementsByClassName("whiteboard")[0];
   var colors = document.getElementsByClassName("color");
   var context = canvas.getContext("2d");
-  context.lineWidth = 2;
 
-  socket.on("start game", ({drawingUser,gameWord}) => {
-    currWord = getClass('currWord')[0];
+  socket.on("start game", ({ drawingUser, gameWord }) => {
+    hideScores();
+    resetGame();
+    gameWordGlobal = gameWord;
+    const currWord = getClass("currWord")[0];
     console.log("Game has started!");
-    console.log(`This user:"${currentUser}"... Drawing user "${drawingUser}"`);
+    console.log(
+      `This is user:"${currentUser}" the Drawing user is "${drawingUser}"`
+    );
     if (currentUser === drawingUser) {
       currWord.textContent = gameWord;
       currentDrawingUser = true;
@@ -67,7 +114,24 @@ document.addEventListener("DOMContentLoaded", function() {
       currWord.textContent = wordToDashes(gameWord);
       currentDrawingUser = false;
     }
+    var roundTimer = setInterval(() => {
+      getClass("round-time")[0].textContent = roundTime;
+      roundTime -= 1;
+      if (roundTime < 0) {
+        clearInterval(roundTimer);
+        console.log("Score object is :", currentUser + ":" + userScore);
+        if(!currentDrawingUser)
+        socket.emit("round end", currentUser + ":" + userScore);
+      }
+    }, 1000);
   });
+
+  socket.on("round end", scoresArray => {
+    console.log("round end event recivend on front end!");
+    console.log("Scores array recives:", scoresArray);
+    displayScores(scoresArray); //send scoresArray, but now its a fake one
+  });
+
   var current = {
     color: "black"
   };
@@ -101,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function() {
     context.moveTo(x0, y0);
     context.lineTo(x1, y1);
     context.strokeStyle = color;
-
+    context.lineWidth = 2;
     context.stroke();
     context.closePath();
 
@@ -197,7 +261,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
   getId("message-form").addEventListener("submit", e => {
     e.preventDefault();
-    socket.emit("chat message", getId("message").value);
+    var sentMsg = getId("message").value;
+    if (!currentDrawingUser) {
+      if (sentMsg === gameWordGlobal) {
+        if (!guessed) {
+          userScore += 10;
+          sentMsg = ` just gueesed the word!`;
+          getClass("score")[0].textContent = userScore + " points";
+          guessed = true;
+        } else {
+          getId("message").value = "";
+          return false;
+        }
+      }
+    } else {
+      if (sentMsg === gameWordGlobal) {
+        getId("message").value = "";
+        return false;
+      }
+    }
+
+    socket.emit("chat message", sentMsg);
     getId("message").value = "";
     return false;
   });
@@ -210,5 +294,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   socket.on("update connected users", function(connectedUsers) {
     updateList(getId("users-list"), connectedUsers);
+    addStartButton();
   });
 });

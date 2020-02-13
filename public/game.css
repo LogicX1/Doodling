@@ -60,6 +60,7 @@ body {
 .messages-container {
     width: 100%;
     height: 80%;
+    overflow: scroll;
 }
 
 .input-container {
@@ -73,7 +74,7 @@ body {
     margin-bottom: 15px;
 }
 
-.messages-list {
+.messages-list , .scores-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -98,6 +99,12 @@ body {
     border-bottom-right-radius: 4px;
 }
 
+.scores-list li {
+    padding: 5px 10px;
+    background:blueviolet;
+    color: whitesmoke;
+    font-size: 1.3em;
+}
 .info-bar h2 {
     color: dimgray;
     align-self: center;

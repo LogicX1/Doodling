@@ -1,24 +1,33 @@
 <div class="main-container">
+    .
     <h2 class="user-msg">Hello {{user}}</h2>
     <div class="info-bar">
         <div class="round">
-            <h2 class='round'>Round 1 of 3</h2>
+            <h2 class='round-time'>30</h2>
+        </div>
+        <div class="next-round">
+            <h2 class='round-time'></h2>
         </div>
         <div class="currentWord">
             <h2 class='currWord'> </h2>
         </div>
-        <div class="score">
-            <h2>0 points</h2>
+        <div class="score-container">
+            <h2 class="score">0 points</h2>
         </div>
     
     </div>
     <div class="game-container">
         <div class="users-container">
             <ul id="users-list" class="messages-list">
+                <li>najwan: 500 points</li>
+            </ul>
+        </div>
+        <div class="canvas-container" class="score-board" id="score-board" style='display:none'>
+            <ul class="scores-list" id="scores-list">
 
             </ul>
         </div>
-        <div class="canvas-container">
+        <div class="canvas-container" id="canvas-container">
               <canvas class="whiteboard" ></canvas>
                 <div class="colors">
                     <div class="color black"></div>
