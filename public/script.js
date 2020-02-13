@@ -21,7 +21,7 @@ function updateList(list, values) {
   });
 }
 /************  globals and consts **********/
-const SETROUNDTIME = 40;
+const SETROUNDTIME = 30;
 var imageData;
 var currentDrawingUser = false;
 var userScore = 0;
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (roundTime < 0) {
         clearInterval(roundTimer);
         console.log("Score object is :", currentUser + ":" + userScore);
-        if(!currentDrawingUser && !guessed)
+        if(!currentDrawingUser)
         socket.emit("round end", currentUser + ":" + userScore);
       }
     }, 1000);
@@ -280,8 +280,6 @@ document.addEventListener("DOMContentLoaded", function() {
           sentMsg = ` just gueesed the word!`;
           getClass("score")[0].textContent = userScore + " points";
           guessed = true;
-          clearInterval(roundTimer);
-          socket.emit("round end", currentUser + ":" + userScore);
         } else {
           getId("message").value = "";
           return false;
