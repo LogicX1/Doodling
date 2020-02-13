@@ -48,6 +48,20 @@ body {
     background: white;
 }
 
+.colors {
+    display: flex;
+    list-style: none;
+    background-color: rgba(104, 199, 236, 0.548);
+
+    padding: 2vh;
+    font-weight: 700;
+    font-size: xx-large;
+}
+.colors li{
+    margin: 3vh;
+}
+
+
 .chat-container {
     border-radius: 8px;
     margin: 9px 9px 0px 0px;
