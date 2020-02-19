@@ -263,15 +263,24 @@ document.addEventListener("DOMContentLoaded", function() {
     drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     currentDrawingUser = temp;
   }
-
+  function reset() {
+    canvas.width = window.innerWidth * 0.95 * 0.5;
+    canvas.height = window.innerHeight * 0.98 * 0.5;
+  }
   // make the canvas fill its parent
   function onResize() {
     imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    canvas.width = window.innerWidth * 0.95 * 0.5;
-    canvas.height = window.innerHeight * 0.98 * 0.5;
+    reset();
     context.putImageData(imageData, 0, 0);
   }
 
+  getId('reset-canvas').addEventListener('click',e=>{
+    if(currentDrawingUser){
+    socket.emit('reset canvas',currentUser);
+    }
+  })
+
+socket.on('reset canvas',()=> reset());
   getId("message-form").addEventListener("submit", e => {
     e.preventDefault();
     var sentMsg = getId("message").value;
