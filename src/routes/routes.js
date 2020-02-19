@@ -76,4 +76,13 @@ router.get("/game", (req, res) => {
   
 });
 
+router.get("/guest", (req, res) => {
+  let newUser = {
+    user: ""
+  };
+  let newGuest = generateGuest();
+    newUser.user = newGuest;
+    res.render("game", newUser);
+});
+
 module.exports = router;

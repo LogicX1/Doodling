@@ -33,7 +33,11 @@ const gameWords = [
   'lemon',
   'apple',
   'bottle',
-  'shoe'
+  'shoe',
+  'banana',
+  'circle',
+  'square',
+  
 ];
 var gameWord = "";
 var drawer="";
@@ -112,13 +116,18 @@ socket.on("restart game",()=>{
       }
     });
 
-    socket.on("chat message", function(msg) {
+    socket.on("chat messagdise", function(msg) {
       console.log(msg);
       io.emit("chat message", userName + " :" + msg);
     });
   });
 
-  socket.on("drawing", data => socket.broadcast.emit("drawing", data));
+  socket.on("drawing", (user,data) =>{
+    if(user===drawer) 
+    {
+      socket.broadcast.emit("drawing", data)
+    }
+    });
 
   socket.on("disconnect", () => {
     console.log(`${userName} has left`);
@@ -126,6 +135,10 @@ socket.on("restart game",()=>{
     connectedUsers.splice(userIndex, 1);
     console.log(`Connected users :`);
     console.table(connectedUsers);
+    if(connectedUsers.length<2){
+      gameStatus=gamePhases.ended;
+      io.emit("round end",['Game canceled no']);
+    }
     io.emit("update connected users", connectedUsers);
   });
 });

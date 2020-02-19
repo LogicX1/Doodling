@@ -51,49 +51,52 @@ function resetGame() {
   guessed = false;
   userScoreObj = {};
   // contextGlobal.putImageData(null,0,0);
-  contextGlobal.clearRect(0, 0, window.innerWidth * 0.6, window.innerHeight * 0.8);
-
+  contextGlobal.clearRect(
+    0,
+    0,
+    window.innerWidth * 0.6,
+    window.innerHeight * 0.8
+  );
 }
 /*************  The work begins when the dom is loaded  **************/
 document.addEventListener("DOMContentLoaded", function() {
   const userMsg = getClass("user-msg")[0].textContent.split(" ");
   const scoreBoardDiv = getId("score-board");
   const scoresList = getId("scores-list");
-  const canvasDiv = getId("canvas-container");
+  const canvasDiv = getId("canvas-colors-container");
   getClass("round-time")[0].textContent = SETROUNDTIME;
-  
+
   function displayScores(scoresArray) {
     scoreBoardDiv.style = "";
-    canvasDiv.style = "display:none"; 
+    canvasDiv.style = "display:none";
     updateList(
       scoresList,
       scoresArray.map(score => score + " points")
     );
     var newListing = document.createElement("li");
     var restartButton = document.createElement("button");
-    restartButton.textContent="Play again!";
-    restartButton.addEventListener('click',(e)=>{
-      socket.emit("restart game",{});
-    })
+    restartButton.textContent = "Play again!";
+    restartButton.addEventListener("click", e => {
+      socket.emit("restart game", {});
+    });
     newListing.appendChild(restartButton);
-    getId('scores-list').appendChild(newListing);
-
+    getId("scores-list").appendChild(newListing);
   }
   function hideScores() {
     scoreBoardDiv.style = "display:none";
     canvasDiv.style = "";
   }
-  function addStartButton(){
-    console.log('creating start button..');
-    var startButton = document.createElement('button');
-    var startButtonLi= document.createElement('li');
-    startButton.className='btn btn-success';
-    startButton.textContent='Start!';
-    startButton.addEventListener('click',e=>{
-      socket.emit("restart game",{});
+  function addStartButton() {
+    console.log("creating start button..");
+    var startButton = document.createElement("button");
+    var startButtonLi = document.createElement("li");
+    startButton.className = "btn btn-success";
+    startButton.textContent = "Start!";
+    startButton.addEventListener("click", e => {
+      socket.emit("restart game", {});
     });
     startButtonLi.appendChild(startButton);
-    getId('users-list').appendChild(startButtonLi);
+    getId("users-list").appendChild(startButtonLi);
   }
   var socket = io();
   var currentUser = userMsg[1];
@@ -103,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var canvas = document.getElementsByClassName("whiteboard")[0];
   var colors = document.getElementsByClassName("color");
   var context = canvas.getContext("2d");
-  contextGlobal=context;
+  contextGlobal = context;
   socket.on("start game", ({ drawingUser, gameWord }) => {
     hideScores();
     resetGame();
@@ -120,14 +123,14 @@ document.addEventListener("DOMContentLoaded", function() {
       currWord.textContent = wordToDashes(gameWord);
       currentDrawingUser = false;
     }
-     roundTimer = setInterval(() => {
+    roundTimer = setInterval(() => {
       getClass("round-time")[0].textContent = roundTime;
       roundTime -= 1;
       if (roundTime < 0) {
         clearInterval(roundTimer);
         console.log("Score object is :", currentUser + ":" + userScore);
-        if(!currentDrawingUser)
-        socket.emit("round end", currentUser + ":" + userScore);
+        if (!currentDrawingUser)
+          socket.emit("round end", currentUser + ":" + userScore);
       }
     }, 1000);
   });
@@ -164,7 +167,6 @@ document.addEventListener("DOMContentLoaded", function() {
   window.addEventListener("resize", onResize, false);
   onResize();
 
-
   function drawLine(x0, y0, x1, y1, color, emit) {
     if (currentDrawingUser === false) {
       return;
@@ -173,19 +175,19 @@ document.addEventListener("DOMContentLoaded", function() {
     context.moveTo(x0, y0);
     context.lineTo(x1, y1);
     context.strokeStyle = color;
-    context.lineWidth = 2;
+    if (current.color.includes("white")) context.lineWidth = 10;
+    else context.lineWidth = 2;
+
     context.stroke();
     context.closePath();
 
-
-    
     if (!emit) {
       return;
     }
     var w = canvas.width;
     var h = canvas.height;
 
-    socket.emit("drawing", {
+    socket.emit("drawing",currentUser, {
       x0: x0 / w,
       y0: y0 / h,
       x1: x1 / w,
@@ -196,7 +198,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function onMouseDown(e) {
     drawing = true;
-    console.log(e.clientX);
     var rect = e.target.getBoundingClientRect();
     current.x = (e.clientX || e.touches[0].clientX) - rect.left;
     current.y = (e.clientY || e.touches[0].clientY) - rect.top;
@@ -265,11 +266,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // make the canvas fill its parent
   function onResize() {
-    imageData=context.getImageData(0,0,canvas.width,canvas.height);
-    canvas.width = window.innerWidth * 0.6;
-    canvas.height = window.innerHeight * 0.8;
-    context.putImageData(imageData,0,0);
-
+    imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    canvas.width = window.innerWidth * 0.95 * 0.5;
+    canvas.height = window.innerHeight * 0.98 * 0.5;
+    context.putImageData(imageData, 0, 0);
   }
 
   getId("message-form").addEventListener("submit", e => {
@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function() {
           sentMsg = ` just gueesed the word!`;
           getClass("score")[0].textContent = userScore + " points";
           guessed = true;
-          socket.emit("round end",currentUser+ ':' + userScore);
+          socket.emit("round end", currentUser + ":" + userScore);
         } else {
           getId("message").value = "";
           return false;
