@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
     <title>Welcome to doodle</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
@@ -15,28 +15,5 @@
 
 </body>
 <script>
-    let sub = document.getElementById('sub')
-    let checkBox = document.getElementById('myCheck')
-    let text = document.getElementById('text')
-    let label = document.getElementById('labelCheck')
-
-  function checkBoxValue() {
-    //if the checkbox is checked, display the output text
-    if(checkBox.checked === true) {
-      text.style.display = 'block';
-      label.style.display = 'none';
-    } else {
-      text.style.display = 'none';
-      label.style.display = 'block';
-    }
-  }
-
-    checkBox.onchange = ()=>{
-        if(sub.disabled){
-            sub.disabled = false;
-        } else {
-            sub.disabled = true;
-        }
-    }
 </script>
 </html>

@@ -1,20 +1,20 @@
 <div class="main-container">
-    .
-    <h2 class="user-msg">Hello {{user}}</h2>
-    <div class="info-bar">
-        <div class="round">
-            <h2 class='round-time'>60</h2>
+    <div class="header">
+        <h2 class="user-msg">Hello {{user}}</h2>
+        <div class="info-bar">
+            <div class="round">
+                <h2 class='round-time'>~</h2>
+            </div>
+            <div class="next-round">
+                <h2 class='round-time'></h2>
+            </div>
+            <div class="currentWord">
+                <h2 class='currWord'> </h2>
+            </div>
+            <div class="score-container">
+                <h2 class="score">0 points</h2>
+            </div>
         </div>
-        <div class="next-round">
-            <h2 class='round-time'></h2>
-        </div>
-        <div class="currentWord">
-            <h2 class='currWord'> </h2>
-        </div>
-        <div class="score-container">
-            <h2 class="score">0 points</h2>
-        </div>
-
     </div>
     <div class="game-container">
         <div class="users-container">
@@ -24,33 +24,47 @@
         </div>
         <div class="canvas-container" class="score-board" id="score-board" style='display:none'>
             <ul class="scores-list" id="scores-list">
-
             </ul>
         </div>
-        <div class="canvas-container" id="canvas-container">
-            <canvas class="whiteboard"></canvas>
-            <ul class="colors">
-                <li class="color black">Black</li>
-                <li class="color red" style="color: red;">Red</li>
-                <li class="color green" style="color: green;">Green</li>
-                <li class="color blue" style="color: blue;">Blue</li>
-                <li class="color yellow" style="color: yellow;">Yellow</li>
-                <li class="color white eraser" style="color:white;">
-                    <img class="color white eraser" style="color:white;" src='/images/iconmonstr-eraser-2-64.png'>
-                </li>
-            </ul>
+        <div class="canvas-colors-container" id="canvas-colors-container">
+            <div class="canvas-container" id="canvas-container">
+                <div class="whiteboard-container">
+                    <canvas class="whiteboard"></canvas>
+                </div>
+            </div>
+            <div class="colors-container">
+                <ul class="colors">
+                    <li class="color black">
+                        <div class="box black"></div>
+                    </li>
+                    <li class="color red">
+                        <div class="box red"></div>
+                    </li>
+                    <li class="color green">
+                        <div class="box green"></div>
+                    </li>
+                    <li class="color blue">
+                        <div class="box blue"></div>
+                    </li>
+                    <li class="color yellow">
+                        <div class="box yellow"></div>
+                    </li>
+                    <li class="color white eraser" style="color:white;">
+                        <img class="color white eraser" style="color:white;" src='/images/iconmonstr-eraser-2-64.png'>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="chat-container">
             <div class="messages-container">
                 <ul id="messages-list" class="messages-list">
-
                 </ul>
             </div>
             <div class="input-container">
                 <form id='message-form' action="">
                     <input id="message" class='form-control' autocomplete="off" />
                     <button type='submit' name='submitBtn' class='btn btn-success'>Send</button>
-                    <label for="submitBtn">Chat with friends</label>
+                    <label for="submitBtn">Type your guess in chat!</label>
                 </form>
             </div>
         </div>

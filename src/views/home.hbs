@@ -12,13 +12,14 @@
     <label for="inputPassword">Password</label>
     <input type="password" class="form-control" name="inputPassword" placeholder="Password">
   </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" onclick="checkBoxValue()" id="myCheck" name="checkBox">
-    <p id='text' style="display: none">Privacy Policy Accepted</p>
-    <label class="custom-check-label" id="labelCheck" style="display: flexbox" for="checkBox">Accept Privacy Policy</label>
-  </div>
-  <button type="submit" id="sub" disabled="disabled" class="btn btn-primary" value="send">Submit</button>
+  <button type="submit" id="sub" class="btn btn-primary" value="send">Submit</button>
 </form>
+<div class="guest-div">
+  <h2 class="guest-header">No account? no problem.. click bellow to play as guest</h2>
+  <form action="/guest" class="guest-join">
+  <button  type="submit" class="btn btn-outline-secondary">Join as guest</button>
+  </form>
+</div>
 </div>
 
 

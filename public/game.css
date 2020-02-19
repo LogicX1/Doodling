@@ -5,19 +5,27 @@ html {
     min-height: 100vh;
 } */
 
+
 body {
     margin: 10px;
     padding: 10px;
-    width: 95vw;
-    height: 87vh;
     background-image: url(./images/game-bg.png);
 }
-
+.main-container{
+    width: 97vw;
+    height: 100vh;
+    
+}
+.header{
+    width:100%;
+    height:auto;
+}
 .info-bar {
+    width:97vw;
     border-radius: 8px;
     min-width: 370px;
     /* width: 126vw; */
-    height: 9%;
+    /* height: 9%; */
     padding: 0px 9px 0px 9px;
     display: flex;
     justify-content: space-between;
@@ -27,65 +35,99 @@ body {
 .game-container {
     margin: 0;
     width: 100%;
-    height: 80%;
-    min-height: 75vh;
+    height: auto;
+    /* min-height: 75%; */
     display: flex;
     justify-content: space-between;
 }
 
 .users-container {
-    margin: 9px;
-    padding: 3px;
-    min-width: 170px;
+    margin: 0.1em;
+    padding: 0.1em;
+    min-width: 120px;
+    height: auto;
 }
 
 .canvas-container {
-    margin: 9px;
+    margin: 0.3em;
     padding: 2px;
-    flex-grow: 1;
-    max-width: 60vw;
-    max-height: 80vh;
     background: white;
 }
-
+.whiteboard-container{
+    width: 100%;
+    height: 85%;
+}
+.colors-container{
+    width: 100%;
+}
 .colors {
+    width: 100%;
+    /* height: 10%; */
     display: flex;
     list-style: none;
     background-color: rgba(104, 199, 236, 0.548);
-
-    padding: 2vh;
     font-weight: 700;
-    font-size: xx-large;
+    font-size: 1.6em;
 }
 .colors li{
-    margin: 3vh;
+    margin: 0.4em;
+    padding: 0.2em;
+    border-radius: 50%;
 }
-
-
+.colors li:hover{
+    cursor: pointer;
+}
+.box {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+.black {
+   background:black;
+}
+.red {
+    background  :red;
+}
+.green {
+    background:green;
+}
+.blue {
+    background:blue;
+}
+.yellow {
+    background:yellow;
+}
 .chat-container {
     border-radius: 8px;
-    margin: 9px 9px 0px 0px;
+    margin: 0.2em;
     padding: 10px;
-    min-width: 250px;
-    height: 90vh;
+    min-width: 270px;
     background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    min-height: 75vh;
 }
 
 .messages-container {
     width: 100%;
     height: 80%;
+    min-height: 80%;
     overflow: scroll;
 }
 
 .input-container {
-    width: 95%;
-    height: 15%;
+    /* width: 95%;
+    height: 15%; */
+    align-self: center baseline;
+    position: sticky;
 }
 
-#message-form {}
+#message-form {
+    margin: 0.2em;
+}
 
 #message {
-    margin-bottom: 15px;
+    margin: 0.2em;
 }
 
 .messages-list , .scores-list {
@@ -125,9 +167,3 @@ body {
     margin-left: 1vw;
 }
 
-@media (max-width: 500px) {
-    .info-bar {
-        min-width: 400px;
-        width: 750px;
-    }
-}
