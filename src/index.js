@@ -129,6 +129,11 @@ socket.on("restart game",()=>{
     }
     });
 
+  socket.on('reset canvas',(user)=>{
+    if(user===drawer){
+      io.emit('reset canvas');
+    }
+  })
   socket.on("disconnect", () => {
     console.log(`${userName} has left`);
     const userIndex = connectedUsers.indexOf(userName);

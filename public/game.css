@@ -74,6 +74,13 @@ body {
     padding: 0.2em;
     border-radius: 50%;
 }
+.reset-canvas {
+    margin-left:80px;
+    align-self: center;
+}
+.reset-canvas:hover {
+    cursor: pointer;
+}
 .colors li:hover{
     cursor: pointer;
 }
@@ -96,6 +103,9 @@ body {
 }
 .yellow {
     background:yellow;
+}
+.white {
+    background: white;
 }
 .chat-container {
     border-radius: 8px;
