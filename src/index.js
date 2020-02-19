@@ -116,7 +116,7 @@ socket.on("restart game",()=>{
       }
     });
 
-    socket.on("chat messagdise", function(msg) {
+    socket.on("chat message", function(msg) {
       console.log(msg);
       io.emit("chat message", userName + " :" + msg);
     });
